@@ -1,0 +1,30 @@
+{
+  "name": "trello-adam-api",
+  "version": "1.0.0",
+  "description": "APIs for trello clone app",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamfouche/trello-adam-api.git"
+  },
+  "keywords": [],
+  "author": "adamforreal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamfouche/trello-adam-api/issues"
+  },
+  "homepage": "https://github.com/adamfouche/trello-adam-api#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/eslint-parser": "^7.18.2",
+    "eslint": "^8.16.0"
+  }
+}
