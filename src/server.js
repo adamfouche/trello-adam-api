@@ -1,15 +1,13 @@
 import express from 'express'
-import { mapOrder } from '~/utils/sorts'
+import { connectDB } from '~/config/mongodb'
+import { env } from './config/environment'
 const app = express()
 
-const hostName = 'localhost'
-const port = 8057
-
+connectDB().catch(console.log)
 app.get('/', (req, res) => {
   res.end('<h1>Tam giac everybody !!!</h1><hr/>')
 })
 
-app.listen(port, hostName, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Listening on port: ${port}`)
+app.listen(env.PORT, env.HOST, () => {
+  console.log(`Listening at: ${env.HOST}:${env.PORT}`)
 })
