@@ -1,13 +1,22 @@
 import express from 'express'
 import { connectDB } from '~/config/mongodb'
 import { env } from './config/environment'
-const app = express()
+connectDB()
+  .then(() => console.log('Connected to MongoDB successfully'))
+  .then(() => bootServer())
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })
 
-connectDB().catch(console.log)
-app.get('/', (req, res) => {
-  res.end('<h1>Tam giac everybody !!!</h1><hr/>')
-})
+const bootServer = () => {
+  const app = express()
 
-app.listen(env.PORT, env.HOST, () => {
-  console.log(`Listening at: ${env.HOST}:${env.PORT}`)
-})
+  app.get('/test', async (req, res) => {
+    res.end('<h1>Tam giac everybody !!!</h1><hr/>')
+  })
+
+  app.listen(env.APP_PORT, env.APP_HOST, () => {
+    console.log(`Listening at: ${env.APP_HOST}:${env.APP_PORT}`)
+  })
+}
