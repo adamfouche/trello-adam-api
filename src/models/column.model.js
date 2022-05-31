@@ -5,9 +5,8 @@ import { ObjectId } from 'mongodb'
 const columnCollectionName = 'columns'
 const columnCollectionSchema = Joi.object({
   boardId: Joi.string().required(),
-  columnId: Joi.string().required(),
-  title: Joi.string().required().min(3).max(20),
-  cover: Joi.string().default(null),
+  title: Joi.string().required().min(3).max(20).trim(),
+  cardOrder: Joi.array().items(Joi.string()).default([]),
   createdAt: Joi.date().timestamp().default(Date.now()),
   updatedAt: Joi.date().timestamp().default(null),
   _destroy: Joi.boolean().default(false)
@@ -37,8 +36,23 @@ const createNew = async (data) => {
       .insertOne(value)
     return findOneById(result.insertedId)
   } catch (error) {
-    console.log(error)
+    throw new Error(error)
   }
 }
 
-export const ColumnModel = { createNew }
+const update = async (id, data) => {
+  try {
+    const result = await getDB()
+      .collection(columnCollectionName)
+      .findOneAndUpdate(
+        { _id: ObjectId(id) },
+        { $set: data },
+        { returnDocument: 'after' }
+      )
+    console.log(result)
+    return result.value
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+export const ColumnModel = { createNew, update }
